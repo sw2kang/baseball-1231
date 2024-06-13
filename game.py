@@ -2,6 +2,9 @@ from game_result import GameResult
 
 
 class Game:
+    def __init__(self):
+        self.question = ""
+
     def is_duplicated_number(self, guess_number):
         return guess_number[0] == guess_number[1] or \
             guess_number[1] == guess_number[2] or \

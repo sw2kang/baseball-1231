@@ -9,12 +9,21 @@ class TestGame(TestCase):
         super().setUp()
         self.game = Game()
 
+    def generate_question(self, question_number):
+        self.game.question = question_number
+
     def assert_illegal_argument(self, guess_number):
         try:
             self.game.guess(guess_number)
             self.fail()
         except TypeError:
             pass
+
+    def assert_matched_number(self, result, solved, strikes, balls):
+        self.assertIsNotNone(result)
+        self.assertEqual(solved, result.get_solved())
+        self.assertEqual(strikes, result.get_strikes())
+        self.assertEqual(balls, result.get_balls())
 
     def test_exception_invalid_input(self):
         self.assert_illegal_argument(None)
@@ -24,19 +33,9 @@ class TestGame(TestCase):
         self.assert_illegal_argument('121')
 
     def test_matched_number(self):
-        self.game.question = "123"
-        result = self.game.guess("123")
-
-        self.assertIsNotNone(result)
-        self.assertTrue(result.get_solved())
-        self.assertEqual(3, result.get_strikes())
-        self.assertEqual(0, result.get_balls())
+        self.generate_question("123")
+        self.assert_matched_number(self.game.guess("123"), True, 3, 0)
 
     def test_not_matched_number(self):
-        self.game.question = "123"
-        result = self.game.guess("456")
-
-        self.assertIsNotNone(result)
-        self.assertFalse(result.get_solved())
-        self.assertEqual(0, result.get_strikes())
-        self.assertEqual(0, result.get_balls())
+        self.generate_question("123")
+        self.assert_matched_number(self.game.guess("456"), False, 0, 0)
