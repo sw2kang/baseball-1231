@@ -19,3 +19,5 @@ class TestGame(TestCase):
     def test_exception_invalid_input(self):
         self.assert_illegal_argument(None)
         self.assert_illegal_argument('12')
+        self.assert_illegal_argument('1234')
+        self.assert_illegal_argument('12e')
