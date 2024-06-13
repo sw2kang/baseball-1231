@@ -23,3 +23,5 @@ class Game:
 
         if guess_number == self.question:
             return GameResult(True, 3, 0)
+        else:
+            return GameResult(False, 0, 0)

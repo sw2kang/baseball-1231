@@ -31,3 +31,12 @@ class TestGame(TestCase):
         self.assertTrue(result.get_solved())
         self.assertEqual(3, result.get_strikes())
         self.assertEqual(0, result.get_balls())
+
+    def test_not_matched_number(self):
+        self.game.question = "123"
+        result = self.game.guess("456")
+
+        self.assertIsNotNone(result)
+        self.assertFalse(result.get_solved())
+        self.assertEqual(0, result.get_strikes())
+        self.assertEqual(0, result.get_balls())
