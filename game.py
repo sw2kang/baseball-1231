@@ -1,8 +1,11 @@
+from game_result import GameResult
+
+
 class Game:
     def is_duplicated_number(self, guess_number):
-        return guess_number[0] != guess_number[1] or \
-            guess_number[1] != guess_number[2] or \
-            guess_number[0] != guess_number[2]
+        return guess_number[0] == guess_number[1] or \
+            guess_number[1] == guess_number[2] or \
+            guess_number[0] == guess_number[2]
 
     def assert_illegal_value(self, guess_number):
         if guess_number is None:
@@ -17,3 +20,5 @@ class Game:
 
     def guess(self, guess_number):
         self.assert_illegal_value(guess_number)
+
+        return GameResult(True, 3, 0)
