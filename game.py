@@ -21,4 +21,5 @@ class Game:
     def guess(self, guess_number):
         self.assert_illegal_value(guess_number)
 
-        return GameResult(True, 3, 0)
+        if guess_number == self.question:
+            return GameResult(True, 3, 0)
