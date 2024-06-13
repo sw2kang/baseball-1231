@@ -21,19 +21,28 @@ class Game:
         if self.is_duplicated_number(guess_number):
             raise TypeError()
 
+    def is_solved(self, guess_number):
+        return guess_number == self.question
+
+    def get_succes_game_result(self):
+        return GameResult(True, 3, 0)
+
+    def get_unsolved_game_result(self, guess_number):
+        strikes = 0
+        balls = 0
+
+        for i in range(len(self.question)):
+            if self.question.find(guess_number[i]) == i:
+                strikes += 1
+            elif self.question.find(guess_number[i]) >= 0:
+                balls += 1
+
+        return GameResult(False, strikes, balls)
+
     def guess(self, guess_number):
         self.assert_illegal_value(guess_number)
 
-        if guess_number == self.question:
-            return GameResult(True, 3, 0)
+        if self.is_solved(guess_number):
+            return self.get_succes_game_result()
         else:
-            strikes = 0
-            balls = 0
-            for guess_c, question_c in zip(guess_number, self.question):
-                if guess_c == question_c:
-                    strikes += 1
-                else:
-                    if self.question.find(guess_c) >= 0:
-                        balls += 1
-
-            return GameResult(False, strikes, balls)
+            return self.get_unsolved_game_result(guess_number)
