@@ -28,8 +28,12 @@ class Game:
             return GameResult(True, 3, 0)
         else:
             strikes = 0
+            balls = 0
             for guess_c, question_c in zip(guess_number, self.question):
                 if guess_c == question_c:
                     strikes += 1
+                else:
+                    if self.question.find(guess_c) >= 0:
+                        balls += 1
 
-            return GameResult(False, strikes, 0)
+            return GameResult(False, strikes, balls)
